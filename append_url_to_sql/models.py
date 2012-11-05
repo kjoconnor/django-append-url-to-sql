@@ -69,6 +69,7 @@ class CursorWrapper(util.CursorDebugWrapper):
                 sql = '%s /* %s */ %s' % (sql[0:sc_pos],
                                         repr(request.path)[2:-1].replace('%', '%%'),
                                         sql[sc_pos:])
+                print sql
                 break
             f = f.f_back
 

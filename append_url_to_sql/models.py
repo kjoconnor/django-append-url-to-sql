@@ -62,16 +62,7 @@ class CursorWrapper(util.CursorDebugWrapper):
         while f:
             request = f.f_locals.get('request')
             if isinstance(request, HttpRequest):
-                # MySQLdb throws error 2014 if you try and add comments after
-                # a semicolon.  Try and find the semicolon, place the comment
-                # text before it, then add the semicolon back.
-                sc_pos = sql.rfind(';')
-                new_sql = (sql[0:sc_pos] + ' /* ' + 
-                    rerepr(request.path)[2:-1].replace('%', '%%') +
-                    ' */ ' + sql[sc_pos:]
-                print sql
-                print new_sql
-                sql = new_sql
+                sql += ' /* %s */ ' % repr(request.path)[2:-1].replace('%', '%%')
                 break
             f = f.f_back
 

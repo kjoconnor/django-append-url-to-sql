@@ -66,10 +66,12 @@ class CursorWrapper(util.CursorDebugWrapper):
                 # a semicolon.  Try and find the semicolon, place the comment
                 # text before it, then add the semicolon back.
                 sc_pos = sql.rfind(';')
-                sql = '%s /* %s */ %s' % (sql[0:sc_pos],
-                                        repr(request.path)[2:-1].replace('%', '%%'),
-                                        sql[sc_pos:])
+                new_sql = (sql[0:sc_pos] + ' /* ' + 
+                    rerepr(request.path)[2:-1].replace('%', '%%') +
+                    ' */ ' + sql[sc_pos:]
                 print sql
+                print new_sql
+                sql = new_sql
                 break
             f = f.f_back
 

@@ -62,7 +62,8 @@ class CursorWrapper(util.CursorDebugWrapper):
         while f:
             request = f.f_locals.get('request')
             if isinstance(request, HttpRequest):
-                sql += ' -- %s' % repr(request.path)[2:-1].replace('%', '%%')
+                # sql += ' -- %s' % repr(request.path)[2:-1].replace('%', '%%')
+                sql += ' /* %s */' % repr(request.path)[2:-1].replace('%', '%%')
                 break
             f = f.f_back
 
